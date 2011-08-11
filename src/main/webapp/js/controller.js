@@ -2,5 +2,5 @@
 
   var fagdag = bekk.namespace("fagdag");
 
-  fagdag.controller = {};
+  fagdag.controller = bekk.extend({}, bekk.util.observable);
 })();
