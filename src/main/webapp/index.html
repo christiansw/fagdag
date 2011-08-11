@@ -1,5 +1,16 @@
 <html>
 	<head>
+        <script type="text/javascript" src="js/lib-external/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="js/lib-external/function.js"></script>
+        <script type="text/javascript" src="js/lib-external/object.js"></script>
+        <script type="text/javascript" src="js/lib-external/bekk-namespace.js"></script>
+        <script type="text/javascript" src="js/lib-external/observable.js"></script>
+        <script type="text/javascript" src="js/lib-external/util.js"></script>
+        <script type="text/javascript" src="js/controller.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <script type="text/javascript" src="js/helpers/priceService.js"></script>
+        <script type="text/javascript" src="js/views/formView.js"></script>
+        <script type="text/javascript" src="js/views/priceView.js"></script>
 	</head>
 	<body>
 		<div>
@@ -9,8 +20,15 @@
 			</form>
 		</div>
 		<div>
-			Price: <span id="price">123,-</span>
+			Price: <span id="price"></span>
 		</div>
 
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var controller = Object.create(bekk.fagdag.controller);
+                controller.init();
+            });
+        </script>
 	</body>
 </html>
