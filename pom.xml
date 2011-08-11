@@ -25,11 +25,11 @@
                     <jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
                     <sourceIncludes>
                         <include>lib-external/jquery/jquery-1.4.2.min.js</include>
-                        <!--include>lib/framework/namespace.js</include>
-                        <include>lib/framework/function.js</include>
-                        <include>lib/framework/object.js</include>
-                        <include>lib/framework/util.js</include>
-                        <include>lib/framework/observable.js</include-->
+                        <include>lib-external/namespace.js</include>
+                        <include>lib-external/function.js</include>
+                        <include>lib-external/object.js</include>
+                        <include>lib-external/util.js</include>
+                        <include>lib-external/observable.js</include>
                         <include>**/*.js</include>
                     </sourceIncludes>
                     <specIncludes>
