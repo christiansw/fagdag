@@ -30,6 +30,7 @@
                         <include>lib-external/object.js</include>
                         <include>util/extend.js</include>
                         <include>util/observable.js</include>
+                        <include>pricePage/states.js</include>
                         <include>**/*.js</include>
                     </sourceIncludes>
                     <specIncludes>
