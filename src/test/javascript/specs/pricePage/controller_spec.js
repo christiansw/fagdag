@@ -10,6 +10,7 @@ describe('Controller', function() {
     pageObject = {};
   });
 
+  
   it('should be namespaced', function() {
     expect(controller).toBeDefined();
   });
@@ -26,6 +27,7 @@ describe('Controller', function() {
 
     expect(formView.init).toHaveBeenCalledWith(controller, pageObject);
   });
+
 
   it('should init priceView and pass in itself and page object', function () {
     controller.init(formView, priceView, pageObject);

@@ -11,11 +11,13 @@ describe('Price View', function() {
       priceLabel : $("<span/>")
     };
   });
-    
+
+
   it('should be namespaced', function() {
     expect(view).toBeDefined();
   });
-  
+
+
   it('should listen for price ready events bound to view', function () {
     view.showPrice = sinon.stub();
 
