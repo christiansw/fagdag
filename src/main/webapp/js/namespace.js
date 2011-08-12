@@ -1,5 +1,5 @@
 //Defines top level namespace
-var bekk = (function () {
+var booking = (function () {
 
   function namespace(string) {
     var object = this;

@@ -42,7 +42,7 @@
     }
   }
 
-  bekk.namespace("util").observable = {
+  booking.namespace("util").observable = {
     observe: observe,
     hasObserver: hasObserver,
     notify: notify
