@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>no.bekk.fagdag</groupId>
-    <artifactId>tddjs</artifactId>
+    <artifactId>booking</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -28,6 +28,7 @@
                         <include>lib-external/jquery/jquery-1.4.2.min.js</include>
                         <include>lib-external/function.js</include>
                         <include>lib-external/object.js</include>
+                        <include>util/extend.js</include>
                         <include>util/observable.js</include>
                         <include>**/*.js</include>
                     </sourceIncludes>
