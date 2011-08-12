@@ -12,7 +12,7 @@
 
   function init() {
     this.priceService = Object.create(bekk.fagdag.helpers.priceService);
-    this.priceService.init(this);
+    this.priceService.init();
 
     this.formView = Object.create(bekk.fagdag.views.formView);
     this.formView.init(getPrice.bind(this));
@@ -22,9 +22,9 @@
 
   fagdag.controller = bekk.extend(
     {
-        setPrice: setPrice,
-        init: init,
-        getPrice: getPrice
+      init: init,
+      setPrice: setPrice,
+      getPrice: getPrice
     },
     bekk.util.observable);
 })();
