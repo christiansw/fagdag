@@ -16,7 +16,7 @@ describe('Price View', function() {
     expect(view).toBeDefined();
   });
   
-  it('should listen for price ready events', function () {
+  it('should listen for price ready events bound to view', function () {
     view.showPrice = sinon.stub();
 
     view.init(controller, pageObject);

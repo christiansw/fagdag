@@ -21,13 +21,6 @@ describe('Controller', function() {
   });
 
 
-  it('should create formView', function () {
-    controller.init(formView, priceView, pageObject);
-
-    expect(controller.formView).toBeDefined();
-  });
-
-
   it('should init formView and pass in itself and page object', function () {
     controller.init(formView, priceView, pageObject);
 

@@ -2,10 +2,8 @@
 //FormView
 
   function handleButtonClick(event) {
-    console.log(event);
     this.controller.fetchPrice(this.weight.val());
     event.preventDefault();
-    console.log(event.isDefaultPrevented);
   }
   
   function init(controller, pageObject) {

@@ -1,7 +1,6 @@
 (function() {
 //PriceView
 
-
   function showPrice(result) {
     this.priceLabel.html(result.price);
   }
