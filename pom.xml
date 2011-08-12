@@ -25,7 +25,7 @@
                     <jsSrcDir>${project.basedir}/src/main/webapp/js</jsSrcDir>
                     <sourceIncludes>
                         <include>namespace.js</include>
-                        <include>lib-external/jquery/jquery-1.4.2.min.js</include>
+                        <include>lib-external/jquery/jquery-1.6.2.js</include>
                         <include>lib-external/function.js</include>
                         <include>lib-external/object.js</include>
                         <include>util/extend.js</include>
