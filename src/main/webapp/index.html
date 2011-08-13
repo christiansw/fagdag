@@ -28,14 +28,10 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        var controller = Object.create(booking.pricePage.controller);
-        var formView = Object.create(booking.pricePage.formView);
-        var priceView = Object.create(booking.pricePage.priceView);
         var pageObject = {
             button : $("#fetchPrice"),
             priceLabel : $("#priceLabel"),
             weight : $("#weight")
         };
-        controller.init(formView, priceView, pageObject);
     });
 </script>
