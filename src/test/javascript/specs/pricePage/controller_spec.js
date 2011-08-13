@@ -41,7 +41,7 @@ describe('Controller', function() {
   });
 
 
-  it('should multiply weight by three on fetchPrice and notify price ready with price argument', function () {
+  it('should notify price ready event with price calculation result', function () {
     var observer = sinon.spy();
     controller.observe(states.priceReady, observer)
 
