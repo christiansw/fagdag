@@ -15,13 +15,28 @@ describe('Price DAO', function () {
   });
 
 
+  it('should be namespaced', function() {
+    expect(dao).toBeDefined();
+  });
+  
+
   it('should reject empty weight', function () {
-    expect(function(){ dao.getPrice(); }).toThrow(new TypeError("Weight must be set"))
+    expect(function() { dao.getPrice(); }).toThrow(new TypeError("Weight must be set"))
   });
 
 
   it('should require successfunction', function () {
-    expect(function(){ dao.getPrice(3); }).toThrow(new TypeError("Success function must be set"))
+    expect(function() { dao.getPrice(3); }).toThrow(new TypeError("Success function must be set"))
+  });
+
+
+  it('should invoke ajax with GET', function () {
+    dao.getPrice({}, function(){});
+
+    expect(ajaxSpy).toHaveBeenCalled();
+
+    var ajaxRequestType = ajaxSpy.getCall(0).args[0].type;
+    expect(ajaxRequestType).toEqual("GET");
   });
 
 
@@ -29,16 +44,10 @@ describe('Price DAO', function () {
     var weight = 3;
     dao.getPrice(weight, function() {});
 
-    expect(ajaxSpy.called).toBeTruthy();
-    expect(ajaxSpy.getCall(0).args[0].data).toEqual({ "weight": weight});
-  });
-
-
-  it('should invoke ajax with GET', function () {
-    dao.getPrice({}, function(){});
-
-    expect(ajaxSpy.called).toBeTruthy();
-    expect(ajaxSpy.getCall(0).args[0].type).toEqual("GET");
+    expect(ajaxSpy).toHaveBeenCalled();
+    
+    var ajaxRequestParams = ajaxSpy.getCall(0).args[0].data;
+    expect(ajaxRequestParams).toEqual({ "weight": weight });
   });
 
 
@@ -49,7 +58,7 @@ describe('Price DAO', function () {
     
     var jQuerySuccessFn = ajaxSpy.getCall(0).args[0].success;
     var remoteData = { "price" : 9 };
-    jQuerySuccessFn(remoteData); //force success!
+    jQuerySuccessFn(remoteData); //force success with remote data!
 
     expect(successFunction).toHaveBeenCalledWith(remoteData);
   });
