@@ -41,9 +41,8 @@ describe('Controller', function() {
   });
 
 
-  it('should notify price ready event with price calculation result', function () {
+  it('should notify price ready event with price calculation result from dao', function () {
     controller.init(formView, priceView, pageObject);
-    var daoResult = { price : 30};
 
     controller.priceDao.getPrice = sinon.spy();
 
@@ -52,6 +51,7 @@ describe('Controller', function() {
 
     controller.fetchPrice("10");
 
+    var daoResult = { price : 30};
     controller.priceDao.getPrice.getCall(0).args[1](daoResult); //force success!
 
     expect(dummyObserver).toHaveBeenCalledWith(daoResult);
