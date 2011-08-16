@@ -37,7 +37,6 @@ describe('Controller', function() {
 
   
   it('should notify observers with priceReady event and DAO-result given DAO success', function () {
-
     controller.priceDao.getPrice = sinon.spy();
 
     var dummyObserver = sinon.spy();
@@ -45,8 +44,9 @@ describe('Controller', function() {
 
     controller.fetchPrice("10");
 
+    var daoSuccessCallback = controller.priceDao.getPrice.getCall(0).args[1];
     var daoResult = { price : 30};
-    controller.priceDao.getPrice.getCall(0).args[1](daoResult); //force success!
+    daoSuccessCallback(daoResult); //force success!
 
     expect(dummyObserver).toHaveBeenCalledWith(daoResult);
     

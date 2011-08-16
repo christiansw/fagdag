@@ -43,12 +43,13 @@ describe('Price DAO', function () {
 
 
   it('should invoke successfunction with result-data from remote service', function () {
-    var remoteData = { "price" : 9 };
-
     var successFunction = sinon.spy();
 
     dao.getPrice(3, successFunction);
-    ajaxSpy.getCall(0).args[0].success(remoteData); //force success!
+    
+    var jQuerySuccessCallback = ajaxSpy.getCall(0).args[0].success;
+    var remoteData = { "price" : 9 };
+    jQuerySuccessCallback(remoteData); //force success!
 
     expect(successFunction).toHaveBeenCalledWith(remoteData);
   });
