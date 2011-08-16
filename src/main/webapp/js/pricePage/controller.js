@@ -9,14 +9,16 @@
     formView.init(this, pageObject);
     priceView.init(this, pageObject);
 
+    this.priceService = Object.create(booking.helpers.priceService);
   }
 
   function fetchPrice(weight) {
     var states = booking.pricePage.states;
-    var price = weight * 3;
-    this.notify(states.priceReady, { price : price });
-  }
 
+    this.priceService.getPrice(weight, function(result) {
+      this.notify(states.priceReady, result);
+    }.bind(this));
+  }
 
   booking.namespace("pricePage").controller = booking.extend(
       {

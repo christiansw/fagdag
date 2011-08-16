@@ -1,7 +1,6 @@
 <%@page contentType="application/json; charset=UTF-8"%>
 
 <%
-	Thread.sleep(1000);
 	String weightParam = request.getParameter("weight");
 
 	try {
