@@ -4,10 +4,11 @@ describe('Controller', function() {
   var states = booking.pricePage.states;
 
   beforeEach(function() {
-    controller = Object.create(booking.pricePage.controller);
     formView = { init : sinon.spy() };
     priceView = { init : sinon.spy() };
     pageObject = {};
+    controller = Object.create(booking.pricePage.controller);
+    controller.init(formView, priceView, pageObject);
   });
 
   
@@ -22,16 +23,10 @@ describe('Controller', function() {
   });
 
 
-  it('should init formView and pass in itself and page object', function () {
+  it('should init views and pass in itself and page object', function () {
     controller.init(formView, priceView, pageObject);
 
     expect(formView.init).toHaveBeenCalledWith(controller, pageObject);
-  });
-
-
-  it('should init priceView and pass in itself and page object', function () {
-    controller.init(formView, priceView, pageObject);
-
     expect(priceView.init).toHaveBeenCalledWith(controller, pageObject);
   });
 
@@ -41,8 +36,7 @@ describe('Controller', function() {
   });
 
 
-  it('should notify price ready event with price calculation result from dao', function () {
-    controller.init(formView, priceView, pageObject);
+  it('should notify observers with price ready event and result from dao on success', function () {
 
     controller.priceDao.getPrice = sinon.spy();
 
