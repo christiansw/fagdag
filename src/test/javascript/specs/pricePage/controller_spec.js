@@ -35,21 +35,24 @@ describe('Controller', function() {
     expect(controller.fetchPrice).toBeDefined();
   });
 
-  
-  it('should notify observers with priceReady event and result given DAO success', function () {
-    var dummyObserver = sinon.spy();
-    controller.observe(states.priceReady, dummyObserver)
 
-    controller.priceDao.getPrice = sinon.spy();
+  describe("fetchPrice method", function() {
 
-    controller.fetchPrice("10");
+    it('should notify observers with priceReady event and result given DAO success', function () {
+      var dummyObserver = sinon.spy();
+      controller.observe(states.priceReady, dummyObserver)
 
-    var daoSuccessFn = controller.priceDao.getPrice.getCall(0).args[1];
-    var daoResult = { price : 30};
-    daoSuccessFn(daoResult); //force success!
+      controller.priceDao.getPrice = sinon.spy();
 
-    expect(dummyObserver).toHaveBeenCalledWith(daoResult);
-    
+      controller.fetchPrice("10");
+
+      var daoSuccessFn = controller.priceDao.getPrice.getCall(0).args[1];
+      var daoResult = { price : 30};
+      daoSuccessFn(daoResult); //force success!
+
+      expect(dummyObserver).toHaveBeenCalledWith(daoResult);
+
+    });
   });
 
 });
