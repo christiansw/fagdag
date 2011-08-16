@@ -4,9 +4,9 @@ describe('Controller', function() {
   var states = booking.pricePage.states;
 
   beforeEach(function() {
-    formView = { init : sinon.spy() };
-    priceView = { init : sinon.spy() };
     pageObject = {};
+    formView = { init : sinon.stub() };
+    priceView = { init : sinon.stub() };
     controller = Object.create(booking.pricePage.controller);
     controller.init(formView, priceView, pageObject);
   });
@@ -36,17 +36,17 @@ describe('Controller', function() {
   });
 
   
-  it('should notify observers with priceReady event and DAO-result given DAO success', function () {
-    controller.priceDao.getPrice = sinon.spy();
-
+  it('should notify observers with priceReady event and result given DAO success', function () {
     var dummyObserver = sinon.spy();
     controller.observe(states.priceReady, dummyObserver)
 
+    controller.priceDao.getPrice = sinon.spy();
+
     controller.fetchPrice("10");
 
-    var daoSuccessCallback = controller.priceDao.getPrice.getCall(0).args[1];
+    var daoSuccessFn = controller.priceDao.getPrice.getCall(0).args[1];
     var daoResult = { price : 30};
-    daoSuccessCallback(daoResult); //force success!
+    daoSuccessFn(daoResult); //force success!
 
     expect(dummyObserver).toHaveBeenCalledWith(daoResult);
     
