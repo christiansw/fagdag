@@ -40,6 +40,8 @@ describe('Form View', function() {
 
 
   it('should prevent default action on click', function () {
+    controller.fetchPrice = sinon.stub();
+
     var event = jQuery.Event("click");
     event.preventDefault = sinon.spy();
 
