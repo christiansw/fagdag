@@ -18,7 +18,7 @@
     });
   }
   
-  helpers.priceService = {
+  helpers.priceDao = {
     getPrice : getPrice
   };
 

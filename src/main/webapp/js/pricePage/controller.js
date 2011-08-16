@@ -9,13 +9,13 @@
     formView.init(this, pageObject);
     priceView.init(this, pageObject);
 
-    this.priceService = Object.create(booking.helpers.priceService);
+    this.priceDao = Object.create(booking.helpers.priceDao);
   }
 
   function fetchPrice(weight) {
     var states = booking.pricePage.states;
 
-    this.priceService.getPrice(weight, function(result) {
+    this.priceDao.getPrice(weight, function(result) {
       this.notify(states.priceReady, result);
     }.bind(this));
   }
