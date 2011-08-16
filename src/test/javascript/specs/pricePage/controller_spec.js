@@ -35,8 +35,8 @@ describe('Controller', function() {
     expect(controller.fetchPrice).toBeDefined();
   });
 
-
-  it('should notify observers with price ready event and result from dao on success', function () {
+  
+  it('should notify observers with priceReady event and DAO-result given DAO success', function () {
 
     controller.priceDao.getPrice = sinon.spy();
 

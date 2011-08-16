@@ -42,7 +42,7 @@ describe('Price DAO', function () {
   });
 
 
-  it('should invoke successfunction with result data from remote service', function () {
+  it('should invoke successfunction with result-data from remote service', function () {
     var remoteData = { "price" : 9 };
 
     var successFunction = sinon.spy();
