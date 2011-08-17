@@ -20,10 +20,10 @@
     }.bind(this));
   }
 
-  booking.namespace("pricePage").controller = booking.extend(
-      {
-        init : init,
-        fetchPrice : fetchPrice
-      },
-      booking.util.observable);
+
+  var controller = Object.create(booking.util.observable);
+  controller.init = init;
+  controller.fetchPrice = fetchPrice;
+
+  booking.namespace("pricePage").controller = controller;
 }());

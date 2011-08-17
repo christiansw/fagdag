@@ -28,7 +28,6 @@
                         <include>lib-external/jquery/jquery-1.6.2.js</include>
                         <include>lib-external/function.js</include>
                         <include>lib-external/object.js</include>
-                        <include>util/extend.js</include>
                         <include>util/observable.js</include>
                         <include>pricePage/states.js</include>
                         <include>helpers/*.js</include>
