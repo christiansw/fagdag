@@ -19,7 +19,7 @@ describe('Price View', function() {
 
 
   it('should listen for price ready events bound to view', function () {
-    view.showPrice = sinon.stub();
+    view.showPrice = sinon.spy();
 
     view.init(controller, pageObject);
 
