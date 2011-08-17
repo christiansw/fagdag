@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Presentation</title>
+  <meta charset='utf-8'>
+  <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+</head>
+
+<body style='display: none'>
+<section class='slides layout-regular '>
+  <article>
+    <h1>
+      Testing av JavaScript
+    </h1>
+
+    <p>
+      Christian Schwarz og Lars Brandt
+      <br>
+      19 August 2011
+    </p>
+  </article>
+  <article>
+    <h3>
+      Agenda
+    </h3>
+    <ul>
+      <li>
+        Hvorfor gjøre noe annet enn vi gjør i dag?
+      </li>
+      <li>
+        JavaScript - the basics
+      </li>
+      <li>
+        Noen smarte løsninger
+      </li>
+      <li>
+        Jasmine
+      </li>
+      <li>
+        En enkel test
+      </li>
+      <li>
+        Et eksempel på MVP pattern
+      </li>
+      <li>
+        Lesson learned
+      </li>
+    </ul>
+  </article>
+
+  <article class='smaller'>
+    <h3>
+      Hvorfor gjøre noe annet enn vi gjør i dag?
+    </h3>
+
+    <p>
+      PackageDetails anno 06.09.2010
+    </p><br/>
+
+    <p>
+      <img style='width: 100%' src='http://i.imgur.com/v5gnu.png'>
+    </p>
+  </article>
+
+  <article class='smaller'>
+    <h3>
+      Hvorfor gjøre noe annet enn vi gjør i dag?
+    </h3>
+
+    <p>
+      PackageDetails anno 22.09.2010
+    </p><br/>
+
+    <p>
+      <img style='width: 100%' src='http://i.imgur.com/JnBT1.png'>
+    </p>
+  </article>
+
+  <article class='smaller'>
+    <h3>
+      Hvorfor gjøre noe annet enn vi gjør i dag?
+    </h3>
+
+    <p>
+      PackageDetails anno 01.12.2010
+    </p><br/>
+
+    <p>
+      <img style='width: 100%' src='http://i.imgur.com/rprLi.png'>
+    </p>
+  </article>
+
+  <article class='smaller'>
+    <h3>
+      Hvorfor gjøre noe annet enn vi gjør i dag?
+    </h3>
+    <br/><br/>
+
+    <p>
+      <img src='http://i.imgur.com/Dy3Pc.png'>
+    </p>
+  </article>
+
+  <article>
+    <h3>
+      Hvorfor gjøre noe annet enn vi gjør i dag?
+    </h3>
+    <ul>
+      <li>
+        Koden er vanskelig/umulig å gjenbruke
+      </li>
+      <li>
+        Umulig å teste
+      </li>
+      <li>
+        Dårlig kvalitet
+        <ul>
+          <li>Har mer bugs i JavaScript enn i Java selv om det bare utgjør 14% av kodebasen</li>
+        </ul>
+      </li>
+      <li>
+        Utfordrende og forbedre/refaktorere koden
+      </li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>
+      Hva ønsket vi oss?
+    </h3>
+    <ul>
+      <li>
+        Ønsket å skrive tester slik vi gjorde med resten av koden
+      </li>
+      <li>
+        Testene måtte kjøre som en del av det normale bygget
+      </li>
+      <li>
+        Forstå JavaScript og heve kvaliteten på koden
+      </li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>
+      Christian kjører slides om basic JavaScript
+    </h3>
+
+  </article>
+
+  <article class='smaller'>
+    <h3>
+      Smarte løsninger - Bruk av namespace
+    </h3>
+
+    <ul>
+      <li>
+        Problem: globale variabler
+      </li>
+      <li>
+        Løsning: bruk av namespacing
+      </li>
+    </ul>
+    <section>
+        <pre>
+var booking = (function () {
+  function namespace(string) {
+    var object = this;
+    var levels = string.split(".");
+    for (var i = 0, l = levels.length; i < l; i++) {
+      if (typeof object[levels[i]] == "undefined") {
+        object[levels[i]] = {};
+      }
+      object = object[levels[i]];
+    }
+    return object;
+  }
+  return {
+    namespace: namespace
+  };
+}());
+        </pre>
+    </section>
+  </article>
+  <article class='smaller'>
+    <h3>
+      Smarte løsninger - Bruk av namespace
+    </h3>
+
+    <section>
+        <pre>
+var utils = booking.namespace("utils");
+
+utils.multiply = function(x, y) {
+  return x * y;
+};
+
+var number = booking.utils.multiply(2.2, 2);
+        </pre>
+    </section>
+  </article>
+
+  <article class='smaller'>
+     <h3>
+       Smarte løsninger - Arv
+     </h3>
+
+     <ul>
+       <li>
+         Problem: Definere arv er litt knotete i JavaScript
+       </li>
+       <li>
+         Løsning: Object.create(MotherObject);
+       </li>
+     </ul>
+     <section>
+         <pre>
+if (!Object.create) {
+  (function () {
+    function F() {}
+
+    Object.create = function (object) {
+      F.prototype = object;
+      return new F();
+    };
+  }());
+}
+         </pre>
+     </section>
+   </article>
+  <article class='smaller'>
+     <h3>
+       Smarte løsninger - Arv
+     </h3>
+
+     <section>
+         <pre>
+var square = {
+  length : 2,
+  depth : 4,
+  area : function() { return this.length * this.depth; }
+};
+
+var box = Object.create(square);
+box.height = 10;
+box.length = 1;
+box.volume = function() {return this.height * this.area();};
+
+box.area(); // 4
+box.volume(); // 40
+square.area(); // 8
+square.volumne(); // undefined
+         </pre>
+     </section>
+   </article>
+
+  <article class='smaller'>
+     <h3>
+      Smarte løsninger - sette this for en metode
+     </h3>
+
+     <ul>
+       <li>
+         Problem: bruke “this” i en callback vi sender fra oss
+       </li>
+       <li>
+         Løsning: someMethod.bind(this);
+       </li>
+     </ul>
+     <section>
+         <pre>
+if (!Function.prototype.bind) {
+  (function () {
+    var slice = Array.prototype.slice;
+
+    Function.prototype.bind = function (thisObj) {
+      var target = this;
+
+      if (arguments.length > 1) {
+        var args = slice.call(arguments, 1);
+
+        return function () {
+          var allArgs = args;
+
+          if (arguments.length > 0) {
+            allArgs = args.concat(slice.call(arguments));
+          }
+
+...
+        </pre>
+     </section>
+   </article>
+  <article class='smaller'>
+     <h3>
+       Smarte løsninger - sette this for en metode
+     </h3>
+
+     <section>
+         <pre>
+function showPrice(result) {
+  this.priceLabel.html(result.price);
+}
+
+function init(controller, pageObject) {
+  this.priceLabel = pageObject.priceLabel;
+
+  var states = booking.pricePage.states;
+  controller.observe(states.priceReady, this.showPrice.bind(this));
+}
+         </pre>
+     </section>
+   </article>
+
+</section>
+</body>
+</html>
