@@ -37,8 +37,7 @@ describe('Form View', function() {
 
     pageObject.button.trigger(event);
 
-    expect(event.isDefaultPrevented).toBeTruthy();
-
+    expect(event.preventDefault).toHaveBeenCalled();
   });
 
 });

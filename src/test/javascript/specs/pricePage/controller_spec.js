@@ -36,9 +36,9 @@ describe('Controller', function() {
   });
 
 
-  describe("fetchPrice method", function() {
+  describe("fetchPrice method success", function() {
 
-    it('should notify observers with priceReady event and result given DAO success', function () {
+    it('should notify observers with priceReady event and DAO result', function () {
       var dummyObserver = sinon.spy();
       controller.observe(states.priceReady, dummyObserver)
 
