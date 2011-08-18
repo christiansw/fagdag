@@ -581,15 +581,14 @@ if (!Function.prototype.bind) {
 
      <section>
          <pre>
-function showPrice(result) {
-  this.priceLabel.html(result.price);
+function handleButtonClick(event) {
+  this.controller.fetchPrice(this.weight.val());
 }
 
 function init(controller, pageObject) {
-  this.priceLabel = pageObject.priceLabel;
+  ...
 
-  var states = booking.pricePage.states;
-  controller.observe(states.priceReady, this.showPrice.bind(this));
+  pageObject.button.click(this.handleButtonClick.bind(this));
 }
          </pre>
      </section>
