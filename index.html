@@ -160,7 +160,7 @@
 
   <article>
     <h3>
-      Simple types
+      JavaScript fundamenter
     </h3>
     <ul>
       <li>
@@ -369,8 +369,18 @@
           alert(name);
           alert(this.name);
       }
-      new Person();  //alertes ”Per”, så “Ole”
+
+      new Person();     //hva alertes her?
+      <script type="text/javascript">
+        function Person() {
+            var name = "Per";
+            this.name = "Ole";
+            alert(name);
+            alert(this.name);
+        }
+      </script>
     </pre>
+    <button style="font-size: 28px;" onclick="new Person(); return false;">Prøv!</button>
   </article>
 
   <article>
