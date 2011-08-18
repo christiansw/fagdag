@@ -58,7 +58,7 @@ describe('Price DAO', function () {
     
     var jQuerySuccessFn = ajaxSpy.getCall(0).args[0].success;
     var remoteData = { "price" : 9 };
-    jQuerySuccessFn(remoteData); //force success with remote data!
+    jQuerySuccessFn(remoteData); //simulate jQuery success
 
     expect(successFunction).toHaveBeenCalledWith(remoteData);
   });

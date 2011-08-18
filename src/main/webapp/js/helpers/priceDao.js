@@ -18,9 +18,7 @@
         data: params,
         type : "GET",
         dataType : 'json',
-        success: function(data){
-            successFunction(data);
-        },
+        success: successFunction,
         error: function(data, status){
             alert(status);
         }
