@@ -23,14 +23,6 @@ describe('Controller', function() {
   });
 
 
-  it('should init views and pass in itself and page object', function () {
-    controller.init(formView, priceView, pageObject);
-
-    expect(formView.init).toHaveBeenCalledWith(controller, pageObject);
-    expect(priceView.init).toHaveBeenCalledWith(controller, pageObject);
-  });
-
-
   it('should contain fetchPrice method', function () {
     expect(controller.fetchPrice).toBeDefined();
   });
