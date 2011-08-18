@@ -167,7 +167,7 @@
     </h3>
     <ul>
       <li>
-        Simple types
+        Simple types er immutable
       </li>
       <ul style="font-size: 22px">
         <li>Numbers</li>
@@ -177,13 +177,11 @@
         <li>undefined</li>
       </ul>
       <li>
-        Immutable
-      </li>
-      <li>
         Alt annet er objekter
       </li>
       <ul style="font-size: 22px">
-        <li>Mutable key / value pairs (properties)</li>
+        <li>Mutable</li>
+        <li>Key / value pairs</li>
       </ul>
     </ul>
   </article>
@@ -207,13 +205,13 @@
       </li>
       <ul style="font-size: 22px">
         <li>
-          property mangler -> prøver prototype’n
+          Hierarki
+        </li>
+        <li>
+          Property mangler -> prøver prototype’n
         </li>
         <li>
           {} har Object.prototype som prototype
-        </li>
-        <li>
-          Hierarki
         </li>
       </ul>
     </ul>
@@ -224,17 +222,22 @@
     </h3>
     <ul>
       <li>
-        Kan inneholde kode
-      </li>
-      <li>
         Er objekter
       </li>
       <ul style="font-size: 22px">
         <li>
-          Kan inneholde public felter
+          Kan inneholde properties
         </li>
         <li>
           Kan tilordnes variable og sendes som argumenter
+        </li>
+      </ul>
+      <li>
+        Inneholder en kodeblokk
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          private variable, statements, expressions, ...
         </li>
       </ul>
       <li>
@@ -255,7 +258,7 @@
 
   <article>
     <h3>
-      Opprette objekter - Legge på felter
+      Opprette objekter - Legge på properties
     </h3>
     <pre>
   var circle = {};
@@ -263,6 +266,9 @@
   circle.area = function() { return this.radius * ... }
 
   var area = circle.area();
+
+  //kan bytte ut public funksjon:
+  circle.area = function() { alert("hei"); }
     </pre>
   </article>
 
@@ -336,7 +342,7 @@
         Variable har function scope
       </li>
       <li>
-        Kode utenfor en funksjon har global scope
+        Variable / funksjoner utenfor en funksjon har global scope
       </li>
       <ul style="font-size: 22px">
         <li>
@@ -643,8 +649,9 @@ function init(controller, pageObject) {
 
   <article>
     <h3>
-      Eksempler
+      Jasmine eksempel
     </h3>
+    <br/>
     <pre>
   describe(“Circle”, function() {
     it(“should compute area”, function() {
@@ -658,8 +665,9 @@ function init(controller, pageObject) {
 
   <article>
     <h3>
-      Sinon
+      Sinon eksempel
     </h3>
+    <br/>
     <pre>
   //Spy: Capture kall
   var fn = sinon.spy();
