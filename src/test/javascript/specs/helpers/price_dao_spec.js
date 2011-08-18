@@ -31,7 +31,7 @@ describe('Price DAO', function () {
 
 
   it('should invoke ajax with GET', function () {
-    dao.getPrice({}, function(){});
+    dao.getPrice(3, function(){});
 
     expect(ajaxSpy).toHaveBeenCalled();
 
