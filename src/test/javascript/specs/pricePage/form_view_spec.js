@@ -18,7 +18,7 @@ describe('Form View', function() {
   });
 
   
-  it('should invoke controller fetchPrice on button click and pass in weight', function () {
+  it('should invoke controller on button click and pass in weight', function () {
     controller.fetchPrice = sinon.spy();
     pageObject.weight.val("10");
 
@@ -29,7 +29,7 @@ describe('Form View', function() {
   });
 
 
-  it('should prevent default action on click', function () {
+  it('should prevent default action on button click', function () {
     controller.fetchPrice = sinon.stub();
 
     var event = jQuery.Event("click");
