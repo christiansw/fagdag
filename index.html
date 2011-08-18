@@ -207,7 +207,7 @@
           {} har Object.prototype som prototype
         </li>
         <li>
-          “property manger” -> prøver prototype’n
+          property mangler -> prøver prototype’n
         </li>
       </ul>
     </ul>
@@ -254,12 +254,11 @@
       Opprette objekter - Legge på felter
     </h3>
     <pre>
-      var circle = {};
-      circle.radius = 1;
-      circle.area = function() { return this.radius * ... }
+  var circle = {};
+  circle.radius = 1;
+  circle.area = function() { return this.radius * ... }
 
-      var area = circle.area();
-
+  var area = circle.area();
     </pre>
   </article>
 
@@ -268,13 +267,13 @@
         Opprette objekter - Object literal
       </h3>
       <pre>
-        var circle = {
-           radius : 1,
-           area : function() { return this.radius * ... }
-        };
-        var area = circle.area();
+  var circle = {
+     radius : 1,
+     area : function() { return this.radius * ... }
+  };
+  var area = circle.area();
 
-        //legg merke til “:” og “,”
+  //legg merke til “:” og “,”
       </pre>
   </article>
 
@@ -314,13 +313,13 @@
       Opprette objekter - Construktor funksjon
     </h3>
     <pre>
-      function Circle () {
-        this.radius = 1;
-        this.area = function() { return this.radius * ... };
-      }
-      var area = new Circle().area();
+  function Circle () {
+    this.radius = 1;
+    this.area = function() { return this.radius * ... };
+  }
+  var area = new Circle().area();
 
-      //må huske “new” (navnekonvensjon)
+  //må huske “new” (navnekonvensjon)
     </pre>
   </article>
   
@@ -329,13 +328,13 @@
       Opprette objekter - Prototype
     </h3>
     <pre>
-      function Circle() {}      //tom constructor funksjon
-      Circle.prototype.radius = 1;
-      Circle.prototype.area = function() {
-            return this.radius * ....
-      };
-      var area = new Circle().area();
-      </pre>
+  function Circle() {}      //tom constructor funksjon
+  Circle.prototype.radius = 1;
+  Circle.prototype.area = function() {
+        return this.radius * ....
+  };
+  var area = new Circle().area();
+    </pre>
   </article>
 
   <article>
@@ -349,9 +348,11 @@
       <li>
         Kode utenfor en funksjon har global scope
       </li>
-      <li>
-        Navnekollisjoner
-      </li>
+      <ul style="font-size: 22px">
+        <li>
+          Navnekollisjoner
+        </li>
+      </ul>
       <li>
         Implicit global scope på udeklarerte variable
       </li>
@@ -363,11 +364,11 @@
       Selveksekvering med lokalt scope
     </h3>
     <pre>
-      (function() {
-         //snurr film
-         //lokale variable havner ikke i global scope
-         var name = “Ole”;
-      }());
+  (function() {
+     //snurr film
+     //lokale variable havner ikke i global scope
+     var name = “Ole”;
+  }());
     </pre>
   </article>
 
@@ -376,14 +377,14 @@
       Variable vs objekt properties
     </h3>
     <pre>
-      function Person() {
-          var name = "Per";
-          this.name = "Ole";
-          alert(name);
-          alert(this.name);
-      }
+  function Person() {
+      var name = "Per";
+      this.name = "Ole";
+      alert(name);
+      alert(this.name);
+  }
 
-      new Person();     //hva alertes her?
+  new Person();  //hva alertes?
       <script type="text/javascript">
         function Person() {
             var name = "Per";
@@ -409,7 +410,7 @@
       </li>
       <ul style="font-size: 22px">
         <li>
-          circle.area()   //circle blir “this”
+          circle.area() &nbsp;  //circle blir “this”
         </li>
       </ul>
       <li>
@@ -417,7 +418,7 @@
       </li>
       <ul style="font-size: 22px">
         <li>
-          add(3, 4)  // “this” blir global object (window)
+          add(3, 4) &nbsp; // “this” blir global object (window)
         </li>
       </ul>
       <li>
@@ -431,7 +432,7 @@
           someFunction.apply(thisVerdi, arguments)
         </li>
         <li>
-          someFunction.bind(thisVerdi) //invokeres ikke
+          someFunction.bind(thisVerdi) &nbsp; //invokeres ikke
         </li>
       </ul>
     </ul>
@@ -658,13 +659,13 @@ function init(controller, pageObject) {
       Eksempler
     </h3>
     <pre>
-      describe(“Circle”, function() {
-        it(“should compute area”, function() {
-          var circle = new Circle();
-          circle.radius = 1;
-          expect(circle.area()).toEqual(3.14);
-        });
-      });
+  describe(“Circle”, function() {
+    it(“should compute area”, function() {
+      var circle = new Circle();
+      circle.radius = 1;
+      expect(circle.area()).toEqual(3.14);
+    });
+  });
     </pre>
   </article>
 
@@ -673,19 +674,19 @@ function init(controller, pageObject) {
       Sinon
     </h3>
     <pre>
-      //Spy: Capture kall
-      var fn = sinon.spy();
-      // ..... 
-      expect(fn).toHaveBeenCalled();
+  //Spy: Capture kall
+  var fn = sinon.spy();
+  // ..... 
+  expect(fn).toHaveBeenCalled();
 
-      //Stub: Returnerer verdier 
-      var areaStub = sinon.stub().returns(3.14); 
-      circle.area = areaStub;    //bytt ut funksjon
+  //Stub: Returnerer verdier 
+  var areaStub = sinon.stub().returns(3.14); 
+  circle.area = areaStub;    //bytt ut funksjon
 
-      //Mock: Verifiserer bruk 
-      var mock = sinon.mock(circle).expects(“area”).once();
-      // ...... 
-      mock.verify(); 
+  //Mock: Verifiserer bruk 
+  var mock = sinon.mock(circle).expects(“area”).once();
+  // ...... 
+  mock.verify(); 
     </pre>
   </article>
 
