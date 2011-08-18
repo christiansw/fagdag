@@ -1,7 +1,5 @@
 (function() {
 
-  var helpers = booking.namespace("helpers");
-
   function getPrice(weight, successFunction) {
     if (!weight) {
       throw new TypeError("Weight must be set");
@@ -24,7 +22,9 @@
         }
     });
   }
-  
+
+  var helpers = booking.namespace("helpers");
+
   helpers.priceDao = {
     getPrice : getPrice
   };
