@@ -8,6 +8,10 @@ describe('Price DAO', function () {
     ajaxSpy = sinon.spy();
     this.oldAjax = $.ajax;
     $.ajax = ajaxSpy;
+
+    ajaxSpy.callArgument = function() {
+        return this.getCall(0).args[0];
+    };
   });
 
   afterEach(function() {
@@ -35,7 +39,7 @@ describe('Price DAO', function () {
 
     expect(ajaxSpy).toHaveBeenCalled();
 
-    var ajaxRequestType = ajaxSpy.getCall(0).args[0].type;
+    var ajaxRequestType = ajaxSpy.callArgument().type;
     expect(ajaxRequestType).toEqual("GET");
   });
 
@@ -46,7 +50,7 @@ describe('Price DAO', function () {
 
     expect(ajaxSpy).toHaveBeenCalled();
     
-    var ajaxRequestParams = ajaxSpy.getCall(0).args[0].data;
+    var ajaxRequestParams = ajaxSpy.callArgument().data;
     expect(ajaxRequestParams).toEqual({ "weight": weight });
   });
 
@@ -56,12 +60,10 @@ describe('Price DAO', function () {
 
     dao.getPrice(3, successFunction);
     
-    var jQuerySuccessFn = ajaxSpy.getCall(0).args[0].success;
+    var jQuerySuccessFn = ajaxSpy.callArgument().success;
     var remoteData = { "price" : 9 };
     jQuerySuccessFn(remoteData); //simulate jQuery success
 
     expect(successFunction).toHaveBeenCalledWith(remoteData);
   });
-
-
 });
