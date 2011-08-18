@@ -153,11 +153,267 @@
   </article>
 
   <article>
-    <h3>
-      Christian kjører slides om basic JavaScript
-    </h3>
-
+    <h1>
+      JavaScript fundamenter
+    </h1>
   </article>
+
+  <article>
+    <h3>
+      Simple types
+    </h3>
+    <ul>
+      <li>
+        Simple types
+      </li>
+      <ul style="font-size: 22px">
+        <li>Numbers</li>
+        <li>String</li>
+        <li>Booleans</li>
+        <li>null</li>
+        <li>undefined</li>
+      </ul>
+      <li>
+        Immutable
+      </li>
+      <li>
+        Alt annet er objekter
+      </li>
+      <ul style="font-size: 22px">
+        <li>Mutable key / value pairs (properties)</li>
+      </ul>
+    </ul>
+  </article>
+
+  <article>
+    <h3>
+      Objekter
+    </h3>
+    <ul>
+      <li>
+        Samling av properties (key / value)
+      </li>
+      <li>
+        Kan legge inn / modifisere properties fra hvor som helst
+      </li>
+      <li>
+        Object literal: {}
+      </li>
+      <li>
+        Link til en prototype
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          {} har Object.prototype som prototype
+        </li>
+        <li>
+          “property manger” -> prøver prototype’n
+        </li>
+      </ul>
+    </ul>
+  </article>
+  <article>
+    <h3>
+      Funksjoner
+    </h3>
+    <ul>
+      <li>
+        Kan inneholde kode
+      </li>
+      <li>
+        Er objekter
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          Kan inneholde public felter
+        </li>
+        <li>
+          Kan tilordnes variable og sendes som argumenter
+        </li>
+      </ul>
+      <li>
+        Kan ha navn (for rekursivitet + debugging)
+      </li>
+      <li>
+        Function literal
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          function() {}   //anonym</li>
+        <li>
+          function foo() {}  //er det samme som:</li>
+        <li>
+          var foo = function foo() {}
+        </li>
+      </ul>
+    </ul>
+  </article>
+
+  <article>
+    <h3>
+      Opprette objekter - Legge på felter
+    </h3>
+    <pre>
+      var circle = {};
+      circle.radius = 1;
+      circle.area = function() { return this.radius * ... }
+
+      var area = circle.area();
+
+    </pre>
+  </article>
+
+  <article>
+      <h3>
+        Opprette objekter - Object literal
+      </h3>
+      <pre>
+        var circle = {
+           radius : 1,
+           area : function() { return this.radius * ... }
+        };
+        var area = circle.area();
+
+        //legg merke til “:” og “,”
+      </pre>
+  </article>
+
+  <article>
+    <h3>
+      Opprette objekter - Closures
+    </h3>
+    <ul>
+      <pre>
+        function circle() {
+          var radius = 1;
+             return {
+            area : function() { return radius *... }
+          }
+        }
+        //radius er “free variable” som lever videre
+        var area = circle().area();
+      </pre>
+    </ul>
+  </article>
+  <article>
+    <h3>
+      Opprette objekter - Construktor funksjon
+    </h3>
+    <pre>
+      function Circle () {
+        this.radius = 1;
+        this.area = function() { return this.radius * ... };
+      }
+      var area = new Circle().area();
+
+      //må huske “new” (navnekonvensjon)
+    </pre>
+  </article>
+  
+  <article>
+    <h3>
+      Opprette objekter - Prototype
+    </h3>
+    <pre>
+      function Circle() {}      //tom constructor funksjon
+      Circle.prototype.radius = 1;
+      Circle.prototype.area = function() {
+            return this.radius * ....
+      };
+      var area = new Circle().area();
+      </pre>
+  </article>
+
+  <article>
+    <h3>
+      Tilganger / scope 
+    </h3>
+    <ul>
+      <li>
+        Variable har function scope
+      </li>
+      <li>
+        Kode utenfor en funksjon har global scope
+      </li>
+      <li>
+        Navnekollisjoner
+      </li>
+      <li>
+        Implicit global scope på udeklarerte variable
+      </li>
+    </ul>
+  </article>
+  
+  <article>
+    <h3>
+      Selveksekvering med lokalt scope
+    </h3>
+    <pre>
+      (function() {
+         //snurr film
+         //lokale variable havner ikke i global scope
+         var name = “Ole”;
+         alert(name);
+      }());
+    </pre>
+  </article>
+
+  <article>
+    <h3>
+      Variable vs objekt properties
+    </h3>
+    <pre>
+      function Person() {
+          var name = "Per";
+          this.name = "Ole";
+          alert(name);
+          alert(this.name);
+      }
+      new Person();  //alertes ”Per”, så “Ole”
+    </pre>
+  </article>
+
+  <article>
+    <h3>
+      This
+    </h3>
+    <ul>
+      <li>
+        this har en dynamisk verdi
+      </li>
+      <li>
+        Dot notation (“method invocation”):
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          circle.area()   //circle blir “this”
+        </li>
+      </ul>
+      <li>
+        Ikke dot notation (“function invocation”):
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          add(3, 4)  // “this” blir global object (window)
+        </li>
+      </ul>
+      <li>
+        Eksplisitt sette this
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          someFunction.call(thisVerdi, arg1, arg2)
+        </li>
+        <li>
+          someFunction.apply(thisVerdi, arguments)
+        </li>
+        <li>
+          someFunction.bind(thisVerdi) //invokeres ikke
+        </li>
+      </ul>
+    </ul>
+  </article>
+
 
   <article class='smaller'>
     <h3>
@@ -323,21 +579,98 @@ function init(controller, pageObject) {
    </article>
 
   <article>
-    <h3>
-      Jasmine
-    </h3>
+    <h1>
+      Testing
+    </h1>
   </article>
 
   <article>
     <h3>
-      Eksempel på testing av ajax
+        Rammeverk
     </h3>
+    <ul>
+      <li>
+        Jasmine
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          BDD rammeverk
+        </li>
+        <li>
+          Specifications and asserts
+        </li>
+        <li>
+          Kjører i nettleser eller i maven
+        </li>
+        <ul style="font-size: 20px">
+          <li>
+            ctrl + r
+          </li>
+          <li>
+            mvn test
+          </li>
+        </ul>
+      </ul>
+      <li>
+        Sinon
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          Spy / stub / mock
+        </li>
+        <li>
+          Jasmine integrasjon
+        </li>
+      </ul>
+    </ul>
   </article>
 
   <article>
     <h3>
-      Eksempel på MVP (Model View Presenter)
+      Eksempler
     </h3>
+    <pre>
+      describe(“Circle”, function() {
+        it(“should compute area”, function() {
+          var circle = new Circle();
+          circle.radius = 1;
+          expect(circle.area()).toEqual(3.14);
+        });
+      });
+    </pre>
+  </article>
+
+  <article>
+    <h3>
+      Sinon
+    </h3>
+    <pre>
+      //Spy: Capture kall
+      var fn = sinon.spy();
+      // ..... 
+      expect(fn).toHaveBeenCalled();
+
+      //Stub: Returnerer verdier 
+      var areaStub = sinon.stub().returns(3.14); 
+      circle.area = areaStub;    //bytt ut funksjon
+
+      //Mock: Verifiserer bruk 
+      var mock = sinon.mock(circle).expects(“area”).once();
+      // ...... 
+      mock.verify(); 
+    </pre>
+  </article>
+
+  <article>
+    <h1>
+      Eksempel: Ajax
+    </h1>
+  </article>
+
+  <article>
+    <h1>
+      Eksempel: Controller + View
+    </h1>
   </article>
 
   <article>
