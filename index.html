@@ -284,15 +284,29 @@
     </h3>
     <ul>
       <pre>
+  function circle() {
+    var radius = 1;
+    return {
+      area : function() { return radius * radius * 3.14 }
+    }
+  }
+
+  //radius er “free variable” som lever videre
+  //radius er privat / beskyttet
+
+  alert(circle().area());
+      </pre>
+      <script type="text/javascript">
         function circle() {
           var radius = 1;
-             return {
-            area : function() { return radius *... }
+          return {
+            area : function() { return radius * radius * 3.14 }
           }
         }
-        //radius er “free variable” som lever videre
-        var area = circle().area();
-      </pre>
+      </script>
+    </pre>
+    <button style="font-size: 28px;" onclick="alert(circle().area()); return false;">Prøv!</button>
+
     </ul>
   </article>
   <article>
@@ -353,7 +367,6 @@
          //snurr film
          //lokale variable havner ikke i global scope
          var name = “Ole”;
-         alert(name);
       }());
     </pre>
   </article>
