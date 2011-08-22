@@ -32,7 +32,7 @@
         JavaScript fundamenter
       </li>
       <li>
-        Smarte løsninger
+        Nyttige hjelpere
       </li>
       <li>
         Testing
@@ -433,13 +433,13 @@
 
   <article>
     <h1>
-      Smarte løsninger
+      Nyttige hjelpere
     </h1>
   </article>
 
   <article class='smaller'>
     <h3>
-      Smarte løsninger - Bruk av namespace
+      Nyttige hjelpere - Bruk av namespace
     </h3>
 
     <ul>
@@ -452,33 +452,6 @@
     </ul>
     <section>
         <pre>
-var booking = (function () {
-  function namespace(string) {
-    var object = this;
-    var levels = string.split(".");
-    for (var i = 0, l = levels.length; i < l; i++) {
-      if (typeof object[levels[i]] == "undefined") {
-        object[levels[i]] = {};
-      }
-      object = object[levels[i]];
-    }
-    return object;
-  }
-  return {
-    namespace: namespace
-  };
-}());
-        </pre>
-    </section>
-  </article>
-  <article>
-    <h3>
-      Smarte løsninger - Bruk av namespace
-    </h3>
-    <br/>
-    <p>Tips: la mappestrukturen i prosjekte speile namespace-hierarkiet</p>
-    <section>
-        <pre>
 var utils = booking.namespace("utils");
 
 utils.multiply = function(x, y) {
@@ -488,117 +461,69 @@ utils.multiply = function(x, y) {
 var number = booking.utils.multiply(2.2, 2);
         </pre>
     </section>
+    <p>Tips: la mappestrukturen i prosjekte speile namespace-hierarkiet</p>
   </article>
 
-  <article>
-     <h3>
-       Smarte løsninger - Arv
-     </h3>
+  <article class="smaller">
+    <h3>
+      Nyttige hjelpere - Prototypal Inheritance
+    </h3>
 
-     <ul>
-       <li>
-         Problem: Definere arv er litt knotete i JavaScript
-       </li>
-       <li>
-         Løsning: Object.create(MotherObject);
-       </li>
-     </ul>
-     <section>
+    <ul>
+      <li>
+        Problem: Bruke JavaScript som java (new keyword)
+      </li>
+      <li>
+        Løsning: Object.create(MotherObject);
+
+        Legg merke til at det er et objekt som arver fra et objekt (ikke klasse)
+      </li>
+    </ul>
+    <section>
          <pre>
-if (!Object.create) {
-  (function () {
-    function F() {}
-
-    Object.create = function (object) {
-      F.prototype = object;
-      return new F();
-    };
-  }());
-}
-         </pre>
-     </section>
-   </article>
-  <article>
-     <h3>
-       Smarte løsninger - Arv
-     </h3>
-
-     <section>
-         <pre>
-var square = {
-  length : 2,
-  depth : 4,
-  area : function() { return this.length * this.depth; }
+var pirate = {
+  numberOfWoodenLegs : 1,
+  talk : function() { alert("Arrrrggg! I have " +
+           parseInt(this.numberOfWoodenLegs, 10) + " wooden leg"); }
 };
 
-var box = Object.create(square);
-box.height = 10;
-box.length = 1;
-box.volume = function() {return this.height * this.area();};
+var polite_pirate = Object.create(pirate);
+polite_pirate.talk = function() { alert("G'day mate. I have " +
+           parseInt(this.numberOfWoodenLegs, 10) + " wooden leg"); }
 
-box.area(); // 4
-box.volume(); // 40
-square.area(); // 8
-square.volumne(); // undefined
+pirate.talk();
+polite_pirate.talk();
          </pre>
-     </section>
-   </article>
+    </section>
+
+  </article>
 
   <article class="smaller">
-     <h3>
-      Smarte løsninger - sette this for en metode
-     </h3>
+    <h3>
+      Nyttige hjelpere - definere this for en callback
+    </h3>
 
-     <ul>
-       <li>
-         Problem: bruke “this” i en callback vi sender fra oss
-       </li>
-       <li>
-         Løsning: someMethod.bind(this);
-       </li>
-     </ul>
-     <section>
-         <pre>
-if (!Function.prototype.bind) {
-  (function () {
-    var slice = Array.prototype.slice;
-
-    Function.prototype.bind = function (thisObj) {
-      var target = this;
-
-      if (arguments.length > 1) {
-        var args = slice.call(arguments, 1);
-
-        return function () {
-          var allArgs = args;
-
-          if (arguments.length > 0) {
-            allArgs = args.concat(slice.call(arguments));
-          }
-
-...
-        </pre>
-     </section>
-   </article>
-  <article>
-     <h3>
-       Smarte løsninger - sette this for en metode
-     </h3>
-
-     <section>
-         <pre>
-function handleButtonClick(event) {
+    <ul>
+      <li>
+        Problem: bruke “this” i en callback vi sender fra oss
+      </li>
+      <li>
+        Løsning: someMethod.bind(this);
+      </li>
+    </ul>
+    <section>
+        <pre>
+ function handleButtonClick(event) {
   this.controller.fetchPrice(this.weight.val());
-}
+ }
 
-function init(controller, pageObject) {
-  ...
-
+ function init(controller, pageObject) {
+ ...
   pageObject.button.click(this.handleButtonClick.bind(this));
-}
-         </pre>
-     </section>
-   </article>
+ }
+        </pre>
+    </section>
+  </article>
 
   <article>
     <h1>
@@ -738,7 +663,7 @@ function init(controller, pageObject) {
         JavaScript fundamenter
       </li>
       <li>
-        Smarte løsninger
+        Nyttige hjelpere
       </li>
       <li>
         Testing
