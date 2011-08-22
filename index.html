@@ -194,6 +194,15 @@
       <li>
         Samling av properties (key / value)
       </li>
+      <ul style="font-size: 22px">
+        <li>
+          Keys er strings
+        </li>
+        <li>
+          Values er primitiver eller objekter)
+        </li>
+      </ul>
+
       <li>
         Kan legge inn / modifisere properties fra hvor som helst
       </li>
@@ -323,16 +332,35 @@
       Opprette objekter - Construktor funksjon
     </h3>
     <pre>
-  function Circle () {
+  function Circle() {
     this.radius = 1;
     this.area = function() { return this.radius * ... };
   }
   var area = new Circle().area();
 
-  //må huske “new” (navnekonvensjon)
+  //Navnekonvensjon: Stor forbokstav
+      
+  //Må huske “new” ellers defineres globale variable!
     </pre>
   </article>
-  
+
+  <article>
+    <h3>
+      Construktor funksjon med guard
+    </h3>
+    <pre>
+  function Circle() {
+    if (!(this instanceof Circle)) {
+      return new Circle();
+    }
+    this.radius = 1;
+    this.area = function() { return this.radius * ... };
+  }
+
+  //Fungerer også uten "new" foran
+    </pre>
+  </article>
+
   <article>
     <h3>
       Tilganger / scope 
@@ -352,6 +380,15 @@
       <li>
         Implicit global scope på udeklarerte variable
       </li>
+      <li>
+        Støtte for closures / "free variables"
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          En funksjon har tilgang til variable fra en ytre funksjon
+          selv om den ytre funksjon har returnert
+        </li>
+      </ul>
     </ul>
   </article>
   
