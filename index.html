@@ -617,6 +617,104 @@ polite_pirate.talk();
   </article>
 
   <article>
+    <h3>
+      Definere objektet
+    </h3>
+    <br/>
+    <pre>
+it('should be namespaced', function() {
+  var dao = Object.create(booking.helpers.priceDao);
+  expect(dao).toBeDefined();
+});
+    </pre>
+
+    <pre>
+var helpers = booking.namespace("helpers");
+helpers.priceDao = {};
+    </pre>
+  </article>
+
+  <article>
+    <h3>
+      Inputvalidering
+    </h3>
+    <pre>
+it('should reject empty weight', function () {
+  expect(function() { dao.getPrice(); }).
+      toThrow(new TypeError("Weight must be set"))
+});
+    </pre>
+
+    <pre>
+function getPrice(weight) {
+  if (!weight) {
+    throw new TypeError("Weight must be set");
+  }
+}
+
+var helpers = booking.namespace("helpers");
+
+helpers.priceDao = {
+  getPrice : getPrice
+};
+    </pre>
+  </article>
+
+  <article>
+    <h3>
+      Spying
+    </h3>
+    <pre>
+  it('should invoke ajax with weight as request parameter', function () {
+    $.ajax = ajaxSpy = sinon.spy();
+
+    var weight = 3;
+    dao.getPrice(weight);
+
+    expect(ajaxSpy).toHaveBeenCalled();
+
+    var ajaxRequestParams = ajaxSpy.callArgument().data;
+    expect(ajaxRequestParams).toEqual({ "weight": weight });
+  });</pre>
+
+    <pre>
+function getPrice(weight) {
+  ...
+  var params = { "weight" : weight };
+  $.ajax({
+    data: params
+  });
+}</pre>
+  </article>
+
+  <article>
+    <h3>
+      Verifisere callbacks
+    </h3>
+    <pre>
+  it('should invoke successfunction with data from remote service', function () {
+    var successFunction = sinon.spy();
+    dao.getPrice(3, successFunction);
+
+    var jQuerySuccessFn = ajaxSpy.callArgument().success;
+    var remoteData = { "price" : 9 };
+    jQuerySuccessFn(remoteData); //simulate jQuery success
+
+    expect(successFunction).toHaveBeenCalledWith(remoteData);
+  });</pre>
+
+    <pre>
+function getPrice(weight, successFunction) {
+  ...
+  $.ajax({
+    url: "price.jsp", data: params, type : "GET",
+    dataType : 'json', success: successFunction
+  });
+}</pre>
+  </article>
+
+
+  <article>
     <h1>
       Eksempel: Controller + View
     </h1>
