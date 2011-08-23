@@ -648,26 +648,30 @@ polite_pirate.talk();
     </h3>
     <ul>
       <li>
-        Komponent uten avhengigheter
+        Komponenter
       </li>
       <ul style="font-size: 22px">
         <li>
-          Test input -> output
+          Objekter med begrenset ansvarsområde
         </li>
-      </ul>
-
-      <li>
-        Komponent med avhengigheter
-      </li>
-      <ul style="font-size: 22px">
+        <li>
+          Mye metoder som properties av objektet
+        </li>
+        <ul style="font-size: 22px">
+          <li>
+            Lar seg overstyre / inspisere
+          </li>
+        </ul>
         <li>
           Send inn avhengigheter i en init metode
         </li>
-        <li>
-          Spy / stub / mock avhengigheter for å fremprovosere ulike caser og verifisere oppførsel
-        </li>
       </ul>
-      <li>Standard testflyt</li>
+      <li>
+        Stub avhengigheter for å fremprovosere ulike caser og verifisere oppførsel
+      </li>
+      <li>
+        Standard testflyt
+      </li>
       <ul style="font-size: 22px">
         <li>
           Sett opp spy / stubs / mocks
@@ -875,6 +879,8 @@ function getPrice(weight, successFunction) {
     <p>Test:</p>
     <pre>
   it('should invoke controller on button click', function () {
+
+    //setup:
     var controller = Object.create(booking.pricePage.controller);
     controller.fetchPrice = sinon.spy();
     var pageObject = {
@@ -883,16 +889,17 @@ function getPrice(weight, successFunction) {
     };
     view.init(controller, pageObject);
 
+    //snurr film:
     pageObject.weight.val("10");
     pageObject.button.click();
 
+    //verify:
     expect(controller.fetchPrice).toHaveBeenCalledWith("10");
-  });
-    </pre>
+  });</pre>
   </article>
 
   <article>
-    <p>Impl:</p>
+    <p>Form View impl:</p>
     <pre>
   (function() {
     function init(controller, pageObject) {
@@ -911,6 +918,73 @@ function getPrice(weight, successFunction) {
       handleButtonClick : handleButtonClick
     };
   }());</pre>
+  </article>
+
+  <article>
+    <h3>View</h3>
+    <br/>
+    <p>
+      <img src="http://i.imgur.com/dYb3n.png"/>
+    </p>
+  </article>
+
+
+  <article>
+    <h3>Price View</h3>
+    <p>Test:</p>
+    <pre>
+  it('should show price on priceReady event', function () {
+
+      //setup
+    var view = Object.create(booking.pricePage.priceView);
+    var controller = Object.create(booking.pricePage.controller);
+    var pageObject = { priceLabel : $("&lt;span/&gt;") };
+    view.init(controller, pageObject);
+
+    //snurr film:
+    controller.notify(states.priceReady, { price : 32});
+
+    //verify:
+    expect(pageObject.priceLabel.html()).toBe("32");
+  });</pre>
+  </article>
+
+  <article>
+    <p>Price View impl:</p>
+    <pre>
+(function() {
+  var states = booking.pricePage.states;
+
+  function init(controller, pageObject) {
+    this.pageObject = pageObject;
+    controller.observe(states.priceReady, this.showPrice.bind(this));
+  }
+
+  function showPrice(result) {
+    this.pageObject.priceLabel.html(result.price);
+  }
+
+  booking.namespace("pricePage").priceView = {
+    init : init,
+    showPrice : showPrice
+  };
+}());</pre>
+  </article>
+
+  <article>
+    <h3>
+      Oppsummering av eksempler
+    </h3>
+    <ul>
+      <li>
+        Mye public metoder
+      </li>
+      <li>
+        
+      </li>
+      <li>
+      </li>
+    </ul>
   </article>
 
 
