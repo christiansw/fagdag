@@ -2,14 +2,14 @@
 //FormView
 
   function handleButtonClick(event) {
-    this.controller.fetchPrice(this.weight.val());
+    this.controller.fetchPrice(this.pageObject.weight.val());
     event.preventDefault();
   }
   
   function init(controller, pageObject) {
     this.controller = controller;
-    this.weight = pageObject.weight;
-    
+    this.pageObject = pageObject;
+
     pageObject.button.click(this.handleButtonClick.bind(this));
 
   }
