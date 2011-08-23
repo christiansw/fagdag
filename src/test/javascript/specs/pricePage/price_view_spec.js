@@ -1,6 +1,6 @@
 describe('Price View', function() {
 
-  var view, controller;
+  var view, controller, pageObject;
   var states = booking.pricePage.states;
 
 
@@ -10,6 +10,7 @@ describe('Price View', function() {
     pageObject = {
       priceLabel : $("<span/>")
     };
+    view.init(controller, pageObject);
   });
 
 
@@ -18,22 +19,11 @@ describe('Price View', function() {
   });
 
 
-  it('should listen for price ready events', function () {
-    view.showPrice = sinon.spy();
+  it('should show price on priceReady event', function () {
+    //precondition:
+    expect(pageObject.priceLabel.html()).toBe("");
 
-    view.init(controller, pageObject);
-
-    controller.notify(states.priceReady);
-
-    expect(view.showPrice).toHaveBeenCalled();
-    expect(view.showPrice.calledOn(view)).toBeTruthy();
-  });
-
-
-  it('should show price', function () {
-    view.init(controller, pageObject);
-
-    view.showPrice({ price : 32});
+    controller.notify(states.priceReady, { price : 32});
 
     expect(pageObject.priceLabel.html()).toBe("32");
   });
