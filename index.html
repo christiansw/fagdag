@@ -178,8 +178,7 @@
         Alt annet er objekter
       </li>
       <ul style="font-size: 22px">
-        <li>Mutable</li>
-        <li>Key / value pairs</li>
+        <li>Mutable key / value pairs</li>
       </ul>
     </ul>
   </article>
@@ -200,12 +199,15 @@
           Values er primitiver eller objekter
         </li>
       </ul>
-
+    </ul>
+      <pre>
+  {
+    name : "Per",
+    occupation : "Developer"
+  }</pre>
+    <ul>
       <li>
         Kan legge inn / modifisere properties fra hvor som helst
-      </li>
-      <li>
-        Object literal: {}
       </li>
       <li>
         Link til en prototype
@@ -216,9 +218,6 @@
         </li>
         <li>
           {} har Object.prototype som prototype
-        </li>
-        <li>
-          Hierarki
         </li>
       </ul>
     </ul>
@@ -233,7 +232,7 @@
       </li>
       <ul style="font-size: 22px">
         <li>
-          Kan inneholde properties
+          Dvs. kan inneholde properties
         </li>
         <li>
           Kan tilordnes variable og sendes som argumenter
@@ -252,7 +251,7 @@
       </li>
     </ul>
     <pre>
-  function() {}   //function literal (anonym funksjon)
+  function() {}   //anonym funksjon
 
   function foo() {}  //navngitt funksjon
 
@@ -293,21 +292,21 @@
 
   <article>
     <h3>
-      Opprette objekter - Closures
+      Opprette objekter med privat state - Closures
     </h3>
     <ul>
       <pre>
-  function circle() {
-    var radius = 1;
-    return {
-      area : function() { return radius * radius * 3.14 }
-    }
+function circle() {
+  var radius = 1;
+  return {
+    area : function() { return radius * radius * 3.14 }
   }
+}
 
-  //radius er “free variable” som lever videre
-  //radius er privat / beskyttet
+//radius er privat / beskyttet
+//radius lever videre etter returnert funksjon (“free variable”)
 
-  alert(circle().area());
+alert(circle().area());
       </pre>
       <script type="text/javascript">
         function circle() {
@@ -345,14 +344,15 @@
     </h3>
     <pre>
   function Circle() {
+
+    //guard against missing "new":
     if (!(this instanceof Circle)) {
       return new Circle();
     }
+
     this.radius = 1;
     this.area = function() { return this.radius * ... };
   }
-
-  //Fungerer også uten "new" foran
     </pre>
   </article>
 
@@ -402,7 +402,7 @@
 
   <article>
     <h3>
-      Variable vs objekt properties
+      Quiz: Variable vs objekt properties
     </h3>
     <pre>
   function Person() {
@@ -590,6 +590,22 @@ polite_pirate.talk();
           </li>
         </ul>
       </ul>
+    </ul>
+    <pre>
+  describe(“Circle”, function() {
+    it(“should compute area”, function() {
+      var circle = new Circle();
+      circle.radius = 1;
+      expect(circle.area()).toEqual(3.14);
+    });
+  });</pre>
+  </article>
+
+  <article>
+    <h3>
+      Rammeverk
+    </h3>
+    <ul>
       <li>
         Sinon
       </li>
@@ -602,29 +618,7 @@ polite_pirate.talk();
         </li>
       </ul>
     </ul>
-  </article>
 
-  <article>
-    <h3>
-      Jasmine eksempel
-    </h3>
-    <br/>
-    <pre>
-  describe(“Circle”, function() {
-    it(“should compute area”, function() {
-      var circle = new Circle();
-      circle.radius = 1;
-      expect(circle.area()).toEqual(3.14);
-    });
-  });
-    </pre>
-  </article>
-
-  <article>
-    <h3>
-      Sinon eksempel
-    </h3>
-    <br/>
     <pre>
   //Spy: Capture kall
   var fn = sinon.spy();
@@ -638,8 +632,7 @@ polite_pirate.talk();
   //Mock: Verifiserer bruk 
   var mock = sinon.mock(circle).expects(“area”).once();
   // ...... 
-  mock.verify(); 
-    </pre>
+  mock.verify(); </pre>
   </article>
 
   <article>
