@@ -1,7 +1,6 @@
 (function() {
 //Controller
 
-
   function init(formView, priceView, pageObject) {
     this.formView = formView;
     this.priceView = priceView;
@@ -12,6 +11,7 @@
     this.priceDao = Object.create(booking.helpers.priceDao);
   }
 
+  
   function fetchPrice(weight) {
     var states = booking.pricePage.states;
 
