@@ -17,7 +17,15 @@ describe('Form View', function() {
     expect(view).toBeDefined();
   });
 
-  
+
+  it('should invoke controller fetchPrice on button click', function () {
+    controller.fetchPrice = sinon.spy();
+
+    pageObject.button.click();
+
+    expect(controller.fetchPrice).toHaveBeenCalled();
+  });
+
   it('should invoke controller on button click and pass in weight', function () {
     controller.fetchPrice = sinon.spy();
     pageObject.weight.val("10");
