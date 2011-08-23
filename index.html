@@ -643,14 +643,73 @@ polite_pirate.talk();
   </article>
 
   <article>
+    <h3>
+      Test patterns
+    </h3>
+    <ul>
+      <li>
+        Komponent uten avhengigheter
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          Test input -> output
+        </li>
+      </ul>
+
+      <li>
+        Komponent med avhengigheter
+      </li>
+      <ul style="font-size: 22px">
+        <li>
+          Send inn avhengigheter i en init metode
+        </li>
+        <li>
+          Spy / stub / mock avhengigheter for å fremprovosere ulike caser og verifisere oppførsel
+        </li>
+      </ul>
+      <li>Standard testflyt</li>
+      <ul style="font-size: 22px">
+        <li>
+          Sett opp spy / stubs / mocks
+        </li>
+        <li>
+          Snurr film!
+        </li>
+        <li>
+          Verifiser resultat / oppførsel
+        </li>
+      </ul>
+    </ul>
+  </article>
+
+
+  <article>
     <h1>
-      Eksempel: Ajax
+      Eksempel
+    </h1>
+  </article>
+
+
+  <article>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <p>
+      <img src="http://i.imgur.com/VflRP.png"/>
+    </p>
+  </article>
+
+
+  <article>
+    <h1>
+      Ajax
     </h1>
   </article>
 
   <article>
     <h3>
-      Definere objektet
+      Definere en Pris DAO
     </h3>
     <br/>
     <pre>
@@ -751,6 +810,109 @@ function getPrice(weight, successFunction) {
       Eksempel: Controller + View
     </h1>
   </article>
+
+  <article>
+    <br/>
+    <br/>
+    <img src="http://i.imgur.com/A7XGB.png" style="margin-left:60px;"/>
+  </article>
+
+
+  <article>
+    <h3>View</h3>
+    <br/>
+    <p>
+      <img src="http://i.imgur.com/dYb3n.png"/>
+    </p>
+  </article>
+
+
+  <article>
+    <h3>
+      Definere Form View
+    </h3>
+    <br/>
+
+    <p>Test:</p>
+    <pre>
+  it('should be namespaced', function() {
+    var view = Object.create(booking.pricePage.formView);
+    expect(view).toBeDefined();
+  });
+    </pre>
+
+    <p>Impl:</p>
+    <pre>
+  (function() {
+    booking.namespace("pricePage").formView = {}
+  }());
+    </pre>
+  </article>
+
+  <article>
+    <p>Test:</p>
+    <pre>
+  it('should contain init and handleButtonClick methods', function () {
+    expect(view.init).toBeDefined();
+    expect(view.handleButtonClick).toBeDefined();
+  });</pre>
+
+    <p>Impl:</p>
+    <pre>
+(function() {
+  function handleButtonClick() {}
+
+  function init() {}
+
+  booking.namespace("pricePage").formView = {
+    init : init,
+    handleButtonClick : handleButtonClick
+  };
+}());</pre>
+  </article>
+
+  <article>
+    <p>Test:</p>
+    <pre>
+  it('should invoke controller on button click', function () {
+    var controller = Object.create(booking.pricePage.controller);
+    controller.fetchPrice = sinon.spy();
+    var pageObject = {
+      button : $("&lt;button/&gt;"),
+      weight : $("&lt;input/&gt;")
+    };
+    view.init(controller, pageObject);
+
+    pageObject.weight.val("10");
+    pageObject.button.click();
+
+    expect(controller.fetchPrice).toHaveBeenCalledWith("10");
+  });
+    </pre>
+  </article>
+
+  <article>
+    <p>Impl:</p>
+    <pre>
+  (function() {
+    function init(controller, pageObject) {
+      this.controller = controller;
+      this.pageObject = pageObject;
+
+      pageObject.button.click(this.handleButtonClick.bind(this));
+    }
+
+    function handleButtonClick(event) {
+      this.controller.fetchPrice(this.pageObject.weight.val());
+    }
+
+    booking.namespace("pricePage").formView = {
+      init : init,
+      handleButtonClick : handleButtonClick
+    };
+  }());</pre>
+  </article>
+
 
   <article>
     <h1>
