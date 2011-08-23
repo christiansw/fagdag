@@ -594,8 +594,7 @@ polite_pirate.talk();
     <pre>
   describe(“Circle”, function() {
     it(“should compute area”, function() {
-      var circle = new Circle();
-      circle.radius = 1;
+      var circle = new Circle(1);
       expect(circle.area()).toEqual(3.14);
     });
   });</pre>
@@ -660,7 +659,7 @@ polite_pirate.talk();
         </ul>
       </ul>
       <li>
-        Stub avhengigheter for å fremprovosere ulike caser og verifisere oppførsel
+        Fremprovosere ulike caser med diverse input og stub retur verdier
       </li>
       <li>
         Standard testflyt
@@ -811,27 +810,11 @@ function getPrice(weight, successFunction) {
   <article>
     <br/>
     <br/>
-    <img src="http://i.imgur.com/2g9h6.png" width="110%" style="margin-left:-35px;" alt="Diagram"/>
     <br/>
-    <ul>
-      <li>Observer pattern</li>
-      <ul style="font-size: 22px">
-        <li>
-          Views kan abonnere på state changes og få ny state data
-        </li>
-      </ul>
-
-      <li>States</li>
-      <ul style="font-size: 22px">
-        <li>
-          "editing"
-        </li>
-        <li>
-          "priceReady"
-        </li>
-      </ul>
-
-    </ul>
+    <br/>
+    <p>
+      <img src="http://i.imgur.com/VflRP.png"/>
+    </p>
   </article>
 
 
@@ -841,6 +824,32 @@ function getPrice(weight, successFunction) {
     <p>
       <img src="http://i.imgur.com/dYb3n.png" alt="View inndeling"/>
     </p>
+  </article>
+
+
+  <article>
+    <br/>
+    <br/>
+    <img src="http://i.imgur.com/2g9h6.png" width="110%" style="margin-left:-35px;" alt="Diagram"/>
+    <br/>
+    <ul>
+      <li>States</li>
+      <ul style="font-size: 22px">
+        <li>
+          "editing"
+        </li>
+        <li>
+          "priceReady"
+        </li>
+      </ul>
+      <li>Observer pattern</li>
+      <ul style="font-size: 22px">
+        <li>
+          Views kan abonnere på state changes og få ny state data
+        </li>
+      </ul>
+
+    </ul>
   </article>
 
 
