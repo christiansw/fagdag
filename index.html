@@ -648,16 +648,16 @@ polite_pirate.talk();
           Objekter med begrenset ansvarsområde
         </li>
         <li>
-          Mye metoder som properties av objektet
+          Send inn avhengigheter i en init metode
+        </li>
+        <li>
+          Mye metoder som properties
         </li>
         <ul style="font-size: 22px">
           <li>
             Lar seg overstyre / inspisere
           </li>
         </ul>
-        <li>
-          Send inn avhengigheter i en init metode
-        </li>
       </ul>
       <li>
         Stub avhengigheter for å fremprovosere ulike caser og verifisere oppførsel
@@ -811,7 +811,27 @@ function getPrice(weight, successFunction) {
   <article>
     <br/>
     <br/>
-    <img src="http://i.imgur.com/A7XGB.png" style="margin-left:60px;"/>
+    <img src="http://i.imgur.com/2g9h6.png" width="110%" style="margin-left:-35px;" alt="Diagram"/>
+    <br/>
+    <ul>
+      <li>Observer pattern</li>
+      <ul style="font-size: 22px">
+        <li>
+          Views kan abonnere på state changes og få ny state data
+        </li>
+      </ul>
+
+      <li>States</li>
+      <ul style="font-size: 22px">
+        <li>
+          "editing"
+        </li>
+        <li>
+          "priceReady"
+        </li>
+      </ul>
+
+    </ul>
   </article>
 
 
@@ -819,14 +839,14 @@ function getPrice(weight, successFunction) {
     <h3>View</h3>
     <br/>
     <p>
-      <img src="http://i.imgur.com/dYb3n.png"/>
+      <img src="http://i.imgur.com/dYb3n.png" alt="View inndeling"/>
     </p>
   </article>
 
 
   <article>
     <h3>
-      Definere Form View
+      Form View
     </h3>
     <br/>
 
