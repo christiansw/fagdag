@@ -17,7 +17,7 @@
     <p>
       Christian Schwarz og Lars Brandt
       <br>
-      19 August 2011
+      26 August 2011
     </p>
   </article>
   <article>
@@ -55,7 +55,7 @@
     </h3>
 
     <p>
-      <img style='width: 100%' src="http://i.imgur.com/OuVQ7.png"/>
+      <img style='width: 100%' src="http://i.imgur.com/uVFd7.png"/>
     </p>
   </article>
 
@@ -97,18 +97,7 @@
     </p><br/>
 
     <p>
-      <img style='width: 100%' src='http://i.imgur.com/rprLi.png'>
-    </p>
-  </article>
-
-  <article>
-    <h3>
-      Hvorfor gjøre noe annet enn vi gjør i dag?
-    </h3>
-    <br/><br/>
-
-    <p>
-      <img src='http://i.imgur.com/Dy3Pc.png'>
+      <img style='width: 100%' src='http://i.imgur.com/RM4Jr.png'>
     </p>
   </article>
 
@@ -130,6 +119,7 @@
         Dårlig kvalitet
         <ul style="font-size: 22px">
           <li>Har mer bugs i JavaScript enn i Java selv om det bare utgjør 14% av kodebasen</li>
+          <img src='http://i.imgur.com/Dy3Pc.png'>
         </ul>
       </li>
       <li>
@@ -490,13 +480,13 @@ utils.multiply = function(x, y) {
   return x * y;
 };
 
-var number = booking.utils.multiply(4, 2);
+alert(booking.utils.multiply(4, 2)); //8
         </pre>
     </section>
     <p>Tips: la mappestrukturen i prosjekte speile namespace-hierarkiet</p>
   </article>
 
-  <article class="smaller">
+  <article>
     <h3>
       Nyttige hjelpere - Prototypal Inheritance
     </h3>
@@ -506,25 +496,27 @@ var number = booking.utils.multiply(4, 2);
         Problem: Bruke JavaScript som java (new keyword)
       </li>
       <li>
-        Løsning: Object.create(MotherObject);
+        Løsning: Object.create();
 
-        Legg merke til at det er et objekt som arver fra et objekt (ikke klasse)
+        Legg merke til at det er et objekt som arver fra et objekt
       </li>
     </ul>
     <section>
          <pre>
-var pirate = {
-  numberOfWoodenLegs : 1,
-  talk : function() { alert("Arrrrggg! I have " +
-           parseInt(this.numberOfWoodenLegs, 10) + " wooden leg"); }
+var boy = {
+ name : "",
+ sayHi : function() { alert('hi! my name is ' + this.name);}
 };
 
-var polite_pirate = Object.create(pirate);
-polite_pirate.talk = function() { alert("G'day mate. I have " +
-           parseInt(this.numberOfWoodenLegs, 10) + " wooden leg"); }
+var lars = Object.create(boy);
+lars.name = 'lars';
 
-pirate.talk();
-polite_pirate.talk();
+var christian = Object.create(boy);
+christian.name = 'christian';
+christian.sayHi = function() {alert('hi!')};
+
+lars.sayHi(); //hi! my name is lars
+christian.sayHi(); // hi!
          </pre>
     </section>
 
@@ -545,13 +537,12 @@ polite_pirate.talk();
     </ul>
     <section>
         <pre>
- function handleButtonClick(event) {
-  this.controller.fetchPrice(this.weight.val());
+ function handleButtonClick() {
+  this.controller.fetchPrice($('#weight').val());
  }
 
- function init(controller, pageObject) {
- ...
-  pageObject.button.click(this.handleButtonClick.bind(this));
+ function init() {
+  $('#update').click(this.handleButtonClick.bind(this));
  }
         </pre>
     </section>
@@ -716,8 +707,10 @@ it('should be namespaced', function() {
     </pre>
 
     <pre>
-var helpers = booking.namespace("helpers");
-helpers.priceDao = {};
+(function() {
+  var helpers = booking.namespace("helpers");
+  helpers.priceDao = {};
+}());
     </pre>
   </article>
 
