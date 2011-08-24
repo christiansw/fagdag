@@ -459,7 +459,7 @@ alert(circle().area());
     </h1>
   </article>
 
-  <article class='smaller'>
+  <article>
     <h3>
       Nyttige hjelpere - Bruk av namespace
     </h3>
@@ -493,7 +493,7 @@ alert(booking.utils.multiply(4, 2)); //8
 
     <ul>
       <li>
-        Problem: Bruke JavaScript som java (new keyword)
+        Problem: Classical OOP vs. Prototypal OOP
       </li>
       <li>
         Løsning: Object.create();
@@ -503,26 +503,26 @@ alert(booking.utils.multiply(4, 2)); //8
     </ul>
     <section>
          <pre>
-var boy = {
- name : "",
- sayHi : function() { alert('hi! my name is ' + this.name);}
+var shape = {
+  color: undefined
 };
 
-var lars = Object.create(boy);
-lars.name = 'lars';
+var rectangle = Object.create(shape);
+rectangle.width = undefined;
+rectangle.height = undefined;
+rectangle.area = function () { return this.width * this.height; };
 
-var christian = Object.create(boy);
-christian.name = 'christian';
-christian.sayHi = function() {alert('hi!')};
-
-lars.sayHi(); //hi! my name is lars
-christian.sayHi(); // hi!
+var myRectangle = Object.create(rectangle);
+myRectangle.color = "blue";
+myRectangle.width = 10;
+myRectangle.height = 5;
+alert(myRectangle.area()); //50
          </pre>
     </section>
 
   </article>
 
-  <article class="smaller">
+  <article>
     <h3>
       Nyttige hjelpere - definere this for en callback
     </h3>
