@@ -553,10 +553,13 @@ var booking = {
         Problem: Classical OOP vs. Prototypal OOP
       </li>
       <li>
-        Løsning: Object.create();
-
-        Legg merke til at det er et objekt som arver fra et objekt
+        Løsning: Object.create(prototype);
       </li>
+      <ul style="font-size: 22px">
+        <li>
+          Oppretter et nytt objekt med prototype pointer til objektet som sendes inn
+        </li>
+      </ul>
     </ul>
     <section>
         <pre>
@@ -642,6 +645,10 @@ myCircle.circumference();
       expect(circle.area()).toEqual(3.14);
     });
   });</pre>
+  </article>
+
+  <article>
+    <iframe  src="http://localhost:8234"></iframe>
   </article>
 
   <article>
@@ -1031,9 +1038,6 @@ function getPrice(weight, successFunction) {
 }());</pre>
   </article>
 
-  <article>
-    <iframe  src="http://localhost:8234"></iframe>
-  </article>
 
   <article>
     <h1>
