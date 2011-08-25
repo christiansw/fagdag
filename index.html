@@ -157,7 +157,7 @@
     </h3>
     <ul>
       <li>
-        Simple types er immutable
+        Simple types
       </li>
       <ul style="font-size: 22px">
         <li>Numbers</li>
@@ -167,9 +167,6 @@
       <li>
         Alt annet er objekter
       </li>
-      <ul style="font-size: 22px">
-        <li>Mutable key / value pairs</li>
-      </ul>
     </ul>
   </article>
 
@@ -190,28 +187,66 @@
         </li>
       </ul>
     </ul>
-      <pre>
+  <pre>
+  //anonymt objekt:
   {
     name : "Per",
-    occupation : "Developer"
+    age : 32,
+    greet : function() { alert("Hei"); }
   }</pre>
     <ul>
       <li>
         Kan legge inn / modifisere properties fra hvor som helst
       </li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>
+      Objekter har link til en prototype
+    </h3>
+    <ul>
       <li>
-        Link til en prototype
+        Mekanisme for gjenbruk av funksjonalitet
+      </li>
+      <li>
+        Delegering
       </li>
       <ul style="font-size: 22px">
         <li>
           Property mangler -> prøver prototype’n
         </li>
         <li>
-          {} har Object.prototype som prototype
+          Hierarki
+        </li>
+        <li>
+          "En streng" har String.prototype som prototype
+        </li>
+        <li>
+          function() {} har Function.prototype som prototype<br/>
+        </li>
+        <li>
+          Alle objekter har default Object.prototype som rot-prototype
+        </li>
+        <li>
+          Ting som legges i prototyper er umiddelbart tilgjengelig for alle som peker til den
         </li>
       </ul>
     </ul>
   </article>
+
+  <article>
+    <h3>
+      Hierarki ("Prototype chain")
+    </h3>
+    <br/>
+    <br/>
+    <img src="http://i.imgur.com/1V2Ld.png" alt="Prototype chain" width="110%"/>
+    <br/>
+    <p>Property aksess: Traverserer prototype chain til property lokaliseres...</p>
+  </article>
+
+
   <article>
     <h3>
       Funksjoner
@@ -241,11 +276,11 @@
       </li>
     </ul>
     <pre>
-  function() {}   //anonym funksjon
-
   function foo() {}  //navngitt funksjon
 
   var foo = function foo() {}  //samme som den over
+
+  function() {}   //anonym funksjon
     </pre>
   </article>
 
@@ -386,6 +421,7 @@ alert(circle().area());
      //snurr film
      //lokale variable havner ikke i global scope
      var name = “Ole”;
+     alert(name);
   }());
     </pre>
   </article>
@@ -610,36 +646,32 @@ myCircle.circumference();
 
   <article>
     <h3>
-      Rammeverk
+      Sinon
     </h3>
     <ul>
       <li>
-        Sinon
+        Mock-rammeverk
       </li>
-      <ul style="font-size: 22px">
-        <li>
-          Spy / stub / mock
-        </li>
-        <li>
-          Jasmine integrasjon
-        </li>
-      </ul>
+      <li>
+        Jasmine integrasjon
+      </li>
     </ul>
 
     <pre>
   //Spy: Capture kall
-  var fn = sinon.spy();
-  // ..... 
-  expect(fn).toHaveBeenCalled();
+  var getPriceSpy = sinon.spy();
+  dao.getPrice = getPriceSpy;   //bytt ut funksjon
+  //....
+  expect(getPriceSpy).toHaveBeenCalledWith({ weight : 32});
 
   //Stub: Returnerer verdier 
-  var areaStub = sinon.stub().returns(3.14); 
-  circle.area = areaStub;    //bytt ut funksjon
+  var getPriceStub = sinon.stub().returns(64); 
+  priceDao.getPrice = getPriceStub;   //bytt ut funksjon
 
   //Mock: Verifiserer bruk 
-  var mock = sinon.mock(circle).expects(“area”).once();
+  var daoMock = sinon.mock(priceDao).expects(“getPrice”).once();
   // ...... 
-  mock.verify(); </pre>
+  daoMock.verify(); </pre>
   </article>
 
   <article>
