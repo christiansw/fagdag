@@ -469,21 +469,42 @@ alert(circle().area());
         Problem: globale variabler
       </li>
       <li>
-        Løsning: bruk av namespacing
+        Løsning: bruk av namespace
       </li>
     </ul>
     <section>
         <pre>
-var utils = booking.namespace("utils");
+var result = booking.utils.multiply(4, 2));
 
+var booking = {
+  namespace : function() {...};
+}
+        </pre>
+    </section>
+  </article>
+
+  <article>
+    <h3>
+      Nyttige hjelpere - Bruk av namespace
+    </h3>
+
+    <section>
+        <pre>
+var utils = booking.namespace("utils");
 utils.multiply = function(x, y) {
   return x * y;
 };
 
-alert(booking.utils.multiply(4, 2)); //8
+var result = booking.utils.multiply(4, 2));
+
+var booking = {
+  namespace : function() {},
+  utils : {
+    multiply : function(x,y){ ... }
+  }
+};
         </pre>
     </section>
-    <p>Tips: la mappestrukturen i prosjekte speile namespace-hierarkiet</p>
   </article>
 
   <article>
@@ -502,21 +523,18 @@ alert(booking.utils.multiply(4, 2)); //8
       </li>
     </ul>
     <section>
-         <pre>
-var shape = {
-  color: undefined
-};
+        <pre>
+var circle = {
+  radius : undefined,
+  area : function { this.radius * ... },
+  circumference : function { this.radius * .... }
+}
 
-var rectangle = Object.create(shape);
-rectangle.width = undefined;
-rectangle.height = undefined;
-rectangle.area = function () { return this.width * this.height; };
-
-var myRectangle = Object.create(rectangle);
-myRectangle.color = "blue";
-myRectangle.width = 10;
-myRectangle.height = 5;
-alert(myRectangle.area()); //50</pre>
+var myCircle = Object.create(circle);
+myCircle.radius = 3;
+myCircle.area();
+myCircle.circumference();
+        </pre>
     </section>
 
   </article>
@@ -536,12 +554,12 @@ alert(myRectangle.area()); //50</pre>
     </ul>
     <section>
         <pre>
- function handleButtonClick() {
-  this.controller.fetchPrice($('#weight').val());
+ function init() {
+  $('#update').click(handleButtonClick.bind(this));
  }
 
- function init() {
-  $('#update').click(this.handleButtonClick.bind(this));
+ function handleButtonClick() {
+  this.controller.fetchPrice($('#weight').val());
  }
         </pre>
     </section>
@@ -699,6 +717,7 @@ alert(myRectangle.area()); //50</pre>
     </h3>
     <br/>
     <pre>
+// Test
 it('should be namespaced', function() {
   var dao = Object.create(booking.helpers.priceDao);
   expect(dao).toBeDefined();
@@ -706,6 +725,7 @@ it('should be namespaced', function() {
     </pre>
 
     <pre>
+// Implementasjon
 (function() {
   var helpers = booking.namespace("helpers");
   helpers.priceDao = {};
@@ -718,13 +738,14 @@ it('should be namespaced', function() {
       Inputvalidering
     </h3>
     <pre>
+// Test
 it('should reject empty weight', function () {
   expect(function() { dao.getPrice(); }).
       toThrow(new TypeError("Weight must be set"))
-});
-    </pre>
+});</pre>
 
     <pre>
+// Implementasjon
 function getPrice(weight) {
   if (!weight) {
     throw new TypeError("Weight must be set");
@@ -732,11 +753,9 @@ function getPrice(weight) {
 }
 
 var helpers = booking.namespace("helpers");
-
 helpers.priceDao = {
   getPrice : getPrice
-};
-    </pre>
+};</pre>
   </article>
 
   <article>
@@ -744,9 +763,9 @@ helpers.priceDao = {
       Spying
     </h3>
     <pre>
+  //Test    
   it('should invoke ajax with weight as request parameter', function () {
     $.ajax = ajaxSpy = sinon.spy();
-
     var weight = 3;
     dao.getPrice(weight);
 
@@ -757,6 +776,7 @@ helpers.priceDao = {
   });</pre>
 
     <pre>
+// Implementasjon
 function getPrice(weight) {
   ...
   var params = { "weight" : weight };
@@ -771,23 +791,25 @@ function getPrice(weight) {
       Verifisere callbacks
     </h3>
     <pre>
+  //Test
   it('should invoke successfunction with data from remote service', function () {
     var successFunction = sinon.spy();
     dao.getPrice(3, successFunction);
 
-    var jQuerySuccessFn = ajaxSpy.callArgument().success;
     var remoteData = { "price" : 9 };
-    jQuerySuccessFn(remoteData); //simulate jQuery success
+    //simulate jQuery success
+    ajaxSpy.getCall(0).args[0].success(remoteData);
 
     expect(successFunction).toHaveBeenCalledWith(remoteData);
   });</pre>
 
     <pre>
+// Implementasjon
 function getPrice(weight, successFunction) {
   ...
   $.ajax({
-    url: "price.jsp", data: params, type : "GET",
-    dataType : 'json', success: successFunction
+    data: params,
+    success: successFunction
   });
 }</pre>
   </article>
@@ -1017,6 +1039,16 @@ function getPrice(weight, successFunction) {
 
   <article>
     <h3>
+      Lesson learned - bøker
+    </h3>
+
+    <br/><br/>
+    <img style="height: 70%; float:left" src="http://i.imgur.com/ELhA0.jpg"/>
+    <img style="height: 70%; float:right" src="http://i.imgur.com/LdVUZ.jpg"/>
+  </article>
+
+  <article>
+    <h3>
       Oppsummering
     </h3>
     <ul>
@@ -1052,6 +1084,10 @@ function getPrice(weight, successFunction) {
     <div class='author'>
       Christian Schwarz og Lars Brandt
     </div>
+
+    <br/><br/>
+    <p style="font-size:18px">Presentasjon: <a href="http://larsbrandt.github.com/fagdag">larsbrandt.github.com/fagdag</a></p>
+    <p style="font-size:18px">Kildekode: <a href="http://github.com/larsbrandt/fagdag">github.com/larsbrandt/fagdag</a></p>
   </article>
 
 
