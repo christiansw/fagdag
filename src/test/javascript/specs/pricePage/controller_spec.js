@@ -31,18 +31,19 @@ describe('Controller', function() {
   describe("fetchPrice method success", function() {
 
     it('should notify observers with priceReady event and DAO result', function () {
-      var dummyObserver = sinon.spy();
-      controller.observe(states.priceReady, dummyObserver)
+      var priceReadyObserver = sinon.spy();
+      controller.observe(states.priceReady, priceReadyObserver)
 
-      controller.priceDao.getPrice = sinon.spy();
+      var daoResult = { price : "30"};
+      controller.priceDao.getPrice = function(weight, callback) {
+        expect(weight).toBe("10");
+        callback(daoResult);
+      }
 
+      //snurr film:
       controller.fetchPrice("10");
 
-      var daoSuccessFn = controller.priceDao.getPrice.getCall(0).args[1];
-      var daoResult = { price : 30};
-      daoSuccessFn(daoResult); //force success!
-
-      expect(dummyObserver).toHaveBeenCalledWith(daoResult);
+      expect(priceReadyObserver).toHaveBeenCalledWith(daoResult);
 
     });
   });
