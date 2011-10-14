@@ -1,17 +1,10 @@
 describe('Price DAO', function () {
 
   var dao;
-  var ajaxSpy;
 
   beforeEach(function () {
     dao = Object.create(booking.helpers.priceDao);
-    ajaxSpy = sinon.spy();
     this.oldAjax = $.ajax;
-    $.ajax = ajaxSpy;
-
-    ajaxSpy.callArgument = function() {
-        return this.getCall(0).args[0];
-    };
   });
 
   afterEach(function() {
@@ -35,35 +28,46 @@ describe('Price DAO', function () {
 
 
   it('should invoke ajax with GET', function () {
+    var invoked = false;
+    $.ajax = function(options) {
+      expect(options.type).toBe("GET");
+      invoked = true;
+    }
+
     dao.getPrice(3, function(){});
 
-    expect(ajaxSpy).toHaveBeenCalled();
+    expect(invoked).toBeTruthy();
 
-    var ajaxRequestType = ajaxSpy.callArgument().type;
-    expect(ajaxRequestType).toEqual("GET");
   });
 
 
   it('should invoke ajax with weight as request parameter', function () {
     var weight = 3;
+
+    var invoked = false;
+    $.ajax = function(options) {
+      expect(options.data).toEqual({ "weight": weight });
+      invoked = true;
+    }
+
     dao.getPrice(weight, function() {});
 
-    expect(ajaxSpy).toHaveBeenCalled();
-    
-    var ajaxRequestParams = ajaxSpy.callArgument().data;
-    expect(ajaxRequestParams).toEqual({ "weight": weight });
+    expect(invoked).toBeTruthy();
   });
 
 
   it('should invoke successfunction with data from remote service', function () {
-    var successFunction = sinon.spy();
-
-    dao.getPrice(3, successFunction);
-    
-    var jQuerySuccessFn = ajaxSpy.callArgument().success;
     var remoteData = { "price" : 9 };
-    jQuerySuccessFn(remoteData); //simulate jQuery success
+    $.ajax = function(options) {
+      options.success(remoteData); //simulate jquery ajax success
+    }
 
-    expect(successFunction).toHaveBeenCalledWith(remoteData);
+    var invoked = false;
+    dao.getPrice(3, function(result) {
+      expect(result).toBe(remoteData);
+      invoked = true;
+    });
+
+    expect(invoked).toBeTruthy();
   });
 });
